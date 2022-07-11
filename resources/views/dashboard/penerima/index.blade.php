@@ -18,7 +18,8 @@
 
 <div class="card mb-4 border-left-primary">
     <div class="card-body">
-        Akun terdaftar sebagai ketua RW <b>004</b> di kelurahan/desa <b>Suka Maju</b>.
+        Akun terdaftar sebagai ketua RW <b>{{ auth()->user()->rw }}</b>
+        di kelurahan/desa <b>{{auth()->user()->kelurahan }}</b>.
     </div>
 </div>
 
@@ -33,13 +34,13 @@
                     <div class="col">
                         <div class="mb-3">
                             <label>Total RT</label>
-                            <p class="text-lg">10</p>
+                            <p class="text-lg">{{ $total['rt'] }}</p>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
                             <label>Total Warga</label>
-                            <p class="text-lg">50</p>
+                            <p class="text-lg">{{ $total['warga'] }}</p>
                         </div>
                     </div>
                 </div>
@@ -75,14 +76,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for($i = 0; $i < 10; $i++) <tr>
-                            <th scope="row" class="text-center">00{{ $i }}</th>
+                        @foreach ($penerimas as $penerima)
+                        <tr>
+                            <th scope="row" class="text-center">{{ $penerima->rt }}</th>
                             <td>
-                                <a href="{{ route('penerima.show', 1) }}" class="text-decoration-none">
-                                    Lorem ipsum dolor.
+                                <a href="{{ route('penerima.show', $penerima->id) }}" class="text-decoration-none">
+                                    {{ $penerima->nama_depan }}
+                                    {{ $penerima->nama_belakang }}
                                 </a>
                             </td>
-                            <td class="text-center">10</td>
+                            <td class="text-center">{{ $penerima->wargas->sum('anggota_keluarga') }}</td>
                             <td class="text-center">
                                 <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -91,18 +94,22 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink" style="">
-                                        <a class="dropdown-item" href="#">Profile</a>
-                                        <a class="dropdown-item" href="#">Edit</a>
+                                        <a class="dropdown-item"
+                                            href="{{ route('penerima.show', $penerima->id) }}">Profile</a>
+                                        <a class="dropdown-item"
+                                            href="{{ route('penerima.edit', $penerima->id) }}">Edit</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item text-danger" href="#">Hapus</a>
                                     </div>
                                 </div>
                             </td>
-                            </tr>
-                            @endfor
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
+                @if($penerimas->count() != 0)
                 <small class="m-3">- klik nama ketua rt untuk menambah / melihat data warga</small>
+                @endif
             </div>
         </div>
     </div>

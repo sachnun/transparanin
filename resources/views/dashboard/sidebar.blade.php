@@ -34,8 +34,12 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item {{ Request::is('dashboard/bantuan/barang*') ? 'active' : '' }}"
                     href="{{ route('barang.index') }}">Barang</a>
+                @if (!auth()->user()->is_admin)
                 <a class="collapse-item {{ Request::is('dashboard/bantuan/penerima*') ? 'active' : '' }}"
                     href="{{ route('penerima.index') }}">Penerima</a>
+                @else
+                <span class="collapse-item text-gray-400">Penerima</span>
+                @endif
             </div>
         </div>
     </li>

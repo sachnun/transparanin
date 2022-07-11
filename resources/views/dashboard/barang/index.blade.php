@@ -7,12 +7,14 @@
         <p>data barang yang digunakan sebagai bentuk bantuan yang akan dikirim.</p>
     </div>
     <div>
+        @if (auth()->user()->is_admin)
         <a href="{{ route('barang.create') }}" class="btn btn-primary btn-icon-split shadow-sm">
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
             <span class="text">Barang Baru</span>
         </a>
+        @endif
     </div>
 </div>
 

@@ -9,10 +9,10 @@
         </p>
     </div>
     <div>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <button onclick="window.print();" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-print fa-sm text-white-50"></i>
             Print Page
-        </a>
+        </button>
     </div>
 </div>
 
@@ -23,7 +23,7 @@
                 <tr>
                     <th scope="col" class="text-center">Waktu</th>
                     <th scope="col">Nama Akun</th>
-                    <th scope="col">Jenis</th>
+                    <th scope="col" class="text-center">Jenis</th>
                     <th scope="col">Log</th>
                 </tr>
             </thead>
@@ -32,21 +32,30 @@
                 <tr>
                     <td class="text-center">{{ $activity->created_at }}</td>
                     <td>
-                        <a href="barang/1" class="text-decoration-none">
+                        @if(auth()->user()->is_admin)
+                        <a href="{{ route('akun.show', $activity->user->id) }}" class="text-decoration-none">
                             {{ $activity->user->nama_depan }}
                             {{ $activity->user->nama_belakang }}
                         </a>
+                        @else
+                        {{ $activity->user->nama_depan }}
+                        {{ $activity->user->nama_belakang }}
+                        @endif
                     </td>
                     @if ($activity->user->is_admin)
-                    <td>Admin</td>
+                    <td class="text-center">Admin</td>
                     @else
-                    <td>RW</td>
+                    <td class="text-center">RW</td>
                     @endif
                     <td>{{ $activity->log }}</td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
+        {{-- paginate --}}
+        <div class="mt-4 px-4">
+            {{ $activities->links() }}
+        </div>
     </div>
 </div>
 

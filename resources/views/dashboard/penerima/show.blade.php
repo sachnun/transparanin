@@ -7,7 +7,7 @@
         <p>data penerima bantuan kepada warga di setiap RT.</p>
     </div>
     <div>
-        <a href="{{ route('akun.create') }}" class="btn btn-primary btn-icon-split shadow-sm">
+        <a href="{{ route('penerima.warga.create', $penerima->id) }}" class="btn btn-primary btn-icon-split shadow-sm">
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
@@ -18,35 +18,62 @@
 
 <div class="card mb-4 border-left-primary">
     <div class="card-body">
-        Akun terdaftar sebagai RW <b>004</b> di daerah <b>Sukamaju</b>.
+        Akun terdaftar sebagai ketua RW <b>{{ auth()->user()->rw }}</b>
+        di kelurahan/desa <b>{{auth()->user()->kelurahan }}</b>.
     </div>
 </div>
 
 <div class="row">
     <div class="col-12 col-md-5">
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Detail</h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                        aria-labelledby="dropdownMenuLink" style="">
+                        <a class="dropdown-item" href="{{ route('penerima.edit', $penerima->id) }}">Edit</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" href="#">Hapus</a>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-3">
                         <div class="mb-3">
                             <label>RT</label>
-                            <p class="text-lg"><b>001</b></p>
+                            <p class="text-lg"><b>{{ $penerima->rt }}</b></p>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
                             <label>Nama Ketua</label>
-                            <p class="text-lg">Lorem, ipsum.</p>
+                            <p class="text-lg">
+                                {{ $penerima->nama_depan }}
+                                {{ $penerima->nama_belakang }}
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
+                    <label>Nomor Induk Kependudukan / NIK</label>
+                    <p class="text-lg">{{ $penerima->nik }}</p>
+                </div>
+                <div class="mb-3">
                     <label>Alamat</label>
-                    <p class="text-lg">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi eligendi sint
-                        exercitationem modi iure laboriosam!</p>
+                    <p class="text-lg">{{ $penerima->alamat }}</p>
+                </div>
+                <div class="mb-3">
+                    <label>Kecamatan</label>
+                    <p class="text-lg">{{ $penerima->kecamatan }}</p>
+                </div>
+                <div class="mb-3">
+                    <label>Kelurahan</label>
+                    <p class="text-lg">{{ $penerima->kelurahan }}</p>
                 </div>
             </div>
         </div>
@@ -66,14 +93,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for($i = 0; $i < 10; $i++) <tr>
+                        @foreach ($wargas as $warga)
+                        <tr>
                             <th scope="row" class="text-center">8923488329832</th>
                             <td>
                                 <a href="{{ route('penerima.show', 1) }}" class="text-decoration-none">
-                                    Lorem ipsum dolor.
+                                    {{ $warga->kepala_keluarga }}
                                 </a>
                             </td>
-                            <td class="text-center">4</td>
+                            <td class="text-center">{{ $warga->anggota_keluarga }}</td>
                             <td class="text-center">
                                 <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -89,8 +117,8 @@
                                     </div>
                                 </div>
                             </td>
-                            </tr>
-                            @endfor
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
