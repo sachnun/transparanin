@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use Illuminate\Http\Request;
 
 class DashboardActivityController extends Controller
 {
     public function index()
     {
-        return view('dashboard.activity.index');
+        $activities = Activity::latest()->paginate(10);
+
+        return view('dashboard.activity.index', compact('activities'));
     }
 }

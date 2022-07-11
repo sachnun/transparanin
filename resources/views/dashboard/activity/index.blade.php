@@ -28,17 +28,23 @@
                 </tr>
             </thead>
             <tbody>
-                @for($i = 0; $i < 30; $i++) <tr>
-                    <td class="text-center">01-01-2022 12:12:12</td>
+                @foreach ($activities as $activity)
+                <tr>
+                    <td class="text-center">{{ $activity->created_at }}</td>
                     <td>
                         <a href="barang/1" class="text-decoration-none">
-                            Beras Gudang Garam
+                            {{ $activity->user->nama_depan }}
+                            {{ $activity->user->nama_belakang }}
                         </a>
                     </td>
+                    @if ($activity->user->is_admin)
+                    <td>Admin</td>
+                    @else
                     <td>RW</td>
-                    <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum, quia?</td>
-                    </tr>
-                    @endfor
+                    @endif
+                    <td>{{ $activity->log }}</td>
+                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +23,10 @@ class DashboardAuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
+            // log
+            $log = new Activity;
+            $log->log('Melakukan login');
+
             return redirect()->intended('dashboard');
         }
 
@@ -32,6 +37,11 @@ class DashboardAuthController extends Controller
 
     public function logout()
     {
+
+        // log
+        $log = new Activity;
+        $log->log('Melakukan logout');
+
         auth()->logout();
 
         return redirect()->route('login');

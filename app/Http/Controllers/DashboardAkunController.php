@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Activity;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -66,6 +67,10 @@ class DashboardAkunController extends Controller
             'kecamatan' => $validated['kecamatan'],
             'is_admin' => $validated['is_admin'],
         ]);
+
+        // log
+        $log = new Activity();
+        $log->log('Menambah akun dengan username ' . $akun->username);
 
         // redirect ke halaman show
         return redirect()->route('akun.show', $akun->id);
@@ -136,6 +141,10 @@ class DashboardAkunController extends Controller
                 'password' => bcrypt($request->password),
             ]);
         }
+
+        // log
+        $log = new Activity();
+        $log->log('Mengubah akun dengan username ' . $akun->username);
 
         // redirect ke halaman show
         return redirect()->route('akun.show', $akun->id);
