@@ -27,19 +27,25 @@
                     <th scope="col" class="text-center">Jenis<br> Akun</th>
                     <th scope="col" class="text-center">Username</th>
                     <th scope="col" class="text-center">Kelurahan / Desa</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                @for($i = 0; $i < 10; $i++) <tr>
-                    <th scope="row" class="text-center">{{ $i }}</th>
+                @foreach ($akuns as $akun)
+                <tr>
+                    <td class="text-center">{{ $loop->iteration + $akuns->firstItem() - 1 }}</td>
                     <td>
-                        <a href="{{ route('akun.show', 1) }}" class="text-decoration-none">
-                            Lorem ipsum dolor.
+                        <a href="{{ route('akun.show', $akun->id) }}" class="text-decoration-none">
+                            {{ $akun->nama_depan }} {{ $akun->nama_belakang }}
                         </a>
                     </td>
+                    @if ($akun->is_admin)
+                    <td class="text-center">Admin</td>
+                    @else
                     <td class="text-center">RW</td>
-                    <td class="text-center">anrinata005</td>
-                    <td class="text-center">Suka Maju</td>
+                    @endif
+                    <td class="text-center">{{ $akun->username }}</td>
+                    <td class="text-center">{{ $akun->kelurahan }}</td>
                     <td class="text-center">
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -48,17 +54,21 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                 aria-labelledby="dropdownMenuLink" style="">
-                                <a class="dropdown-item" href="#">Profile</a>
-                                <a class="dropdown-item" href="#">Edit</a>
+                                <a class="dropdown-item" href="{{ route('akun.show', $akun->id) }}">Profile</a>
+                                <a class="dropdown-item" href="{{ route('akun.edit', $akun->id) }}">Edit</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-danger" href="#">Hapus</a>
                             </div>
                         </div>
                     </td>
-                    </tr>
-                    @endfor
+                </tr>
+                @endforeach
             </tbody>
         </table>
+        {{-- paginate --}}
+        <div class="mt-4 px-4">
+            {{ $akuns->links() }}
+        </div>
     </div>
 </div>
 

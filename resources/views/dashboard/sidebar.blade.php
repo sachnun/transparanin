@@ -40,13 +40,15 @@
         </div>
     </li>
 
-
+    @if (!auth()->user()->is_admin)
     <li class="nav-item {{ Request::is('dashboard/track*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('track.index') }}">
             <i class="fas fa-fw fa-hand-holding-hand"></i>
             <span>Tracking</span></a>
     </li>
+    @endif
 
+    @if(auth()->user()->is_admin)
     @php
     $active = Request::is('dashboard/validasi/*') ? true : false;
     @endphp
@@ -68,6 +70,7 @@
             </div>
         </div>
     </li>
+    @endif
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -77,14 +80,14 @@
         Pengguna
     </div>
 
-    <!-- Nav Item - Charts -->
+    @if (auth()->user()->is_admin)
     <li class="nav-item {{ Request::is('dashboard/akun*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('akun.index') }}">
             <i class="fas fa-fw fa-user-gear"></i>
             <span>Akun</span></a>
     </li>
+    @endif
 
-    <!-- Nav Item - Tables -->
     <li class="nav-item {{ Request::is('dashboard/activity*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('activity') }}">
             <i class="fas fa-fw fa-clock-rotate-left"></i>
