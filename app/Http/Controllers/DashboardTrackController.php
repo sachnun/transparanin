@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bantuan;
 use Illuminate\Http\Request;
 
 class DashboardTrackController extends Controller
 {
     public function index()
     {
-        return view('dashboard.track.index');
+        $bantuans = auth()->user()->bantuans->except('data_penerima');
+
+        return view('dashboard.track.index', compact('bantuans'));
     }
 
     public function create()
@@ -23,7 +26,9 @@ class DashboardTrackController extends Controller
 
     public function show($id)
     {
-        return view('dashboard.track.show');
+        $bantuan = Bantuan::findOrFail($id);
+
+        return view('dashboard.track.show', compact('bantuan'));
     }
 
     public function edit($id)

@@ -13,4 +13,13 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $guarded = ['id'];
+
+    public function penerimas()
+    {
+        return $this->hasMany(Penerima::class);
+    }
+    public function bantuans()
+    {
+        return $this->hasMany(Bantuan::class);
+    }
 }

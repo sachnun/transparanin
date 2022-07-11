@@ -20,20 +20,25 @@
             <div class="card-body">
                 <div class="mb-3">
                     <label>Tanggal Permintaan</label>
-                    <p class="text-lg">03-03-2022</p>
+                    <p class="text-lg">{{ $bantuan->created_at }}</p>
                 </div>
                 <div class="mb-3">
                     <label>Bencana</label>
-                    <p class="text-lg">Penyebaran COVID-19</p>
+                    <p class="text-lg">{{ $bantuan->bencana }}</p>
                 </div>
                 <div class="mb-3">
                     <label>Dampak</label>
-                    <p class="text-lg">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt, molestias.
-                    </p>
+                    <p class="text-lg">{{ $bantuan->dampak }}</p>
                 </div>
                 <div class="mb-3">
                     <label>Status Validasi</label>
+                    @if($bantuan->status == 'permintaan')
                     <p class="text-lg text-warning">Permintaan</p>
+                    @elseif ($bantuan->status == 'terkirim')
+                    <p class="text-lg text-primary">Terkirim</p>
+                    @elseif ($bantuan->status == 'batal')
+                    <p class="text-lg text-danger">Batal</p>
+                    @endif
                 </div>
             </div>
         </div>
@@ -47,42 +52,41 @@
             <div class="card-body">
                 <div class="mb-3">
                     <label>Ketua RW</label>
-                    <p class="text-lg">Samsudin Alimawan</p>
+                    <p class="text-lg">
+                        {{ $bantuan->user->nama_depan }}
+                        {{ $bantuan->user->nama_belakang }}
+                    </p>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="mb-3">
                             <label>Total RT</label>
-                            <p class="text-lg">10</p>
+                            <p class="text-lg">{{ $bantuan->total_rt }}</p>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
                             <label>Total Warga</label>
-                            <p class="text-lg">53</p>
+                            <p class="text-lg">{{ $bantuan->total_warga }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <ul class="list-group list-group-flush">
-                        @for ($i = 0; $i < 10; $i++) <li class="list-group-item">RT 003 - Samsul Alam
+                        @foreach (json_decode($bantuan->data_penerima) as $penerima)
+                        <li class="list-group-item">
+                            RT {{ $penerima->rt }} - {{ $penerima->nama_depan }} {{ $penerima->nama_belakang }}
                             <ul class="mb-2">
+                                @foreach ($penerima->wargas as $warga)
                                 <li>
-                                    <span class="badge badge-secondary badge-pill">14 orang</span>
-                                    Keluarga Sub of Second
+                                    <span class="badge badge-secondary badge-pill">{{ $warga->anggota_keluarga }}
+                                        orang</span>
+                                    {{ $warga->kepala_keluarga }}
                                 </li>
-                                <li>
-                                    <span class="badge badge-secondary badge-pill">14 orang</span>
-                                    Keluarga Sub of Second
-                                </li>
-                                <li>
-                                    <span class="badge badge-secondary badge-pill">14 orang</span>
-                                    Keluarga Sub of Second
-                                </li>
-
+                                @endforeach
                             </ul>
-                            </li>
-                            @endfor
+                        </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>

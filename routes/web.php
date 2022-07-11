@@ -40,6 +40,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::resource('/barang', DashboardBarangController::class);
         Route::resource('/penerima', DashboardPenerimaController::class);
         Route::resource('penerima.warga', DashboardWargaController::class);
+        Route::post('/minta_bantuan', [DashboardPenerimaController::class, 'minta_bantuan'])->name('minta_bantuan');
     });
 
     Route::resource('/track', DashboardTrackController::class);

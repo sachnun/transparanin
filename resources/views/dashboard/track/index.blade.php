@@ -24,20 +24,27 @@
                 </tr>
             </thead>
             <tbody>
-                @for($i = 0; $i < 10; $i++) <tr>
-                    <td scope="row" class="text-center">10-10-2022</td>
+                @foreach ($bantuans as $bantuan)
+                <tr>
+                    <td scope="row" class="text-center">{{ $bantuan->created_at }}</td>
                     <td>
                         <a href="{{ route('track.show', 1) }}" class="text-decoration-none">
-                            Penyebaran COVID-19
+                            {{ $bantuan->bencana }}
                         </a>
                     </td>
-                    <td class="text-center">5</td>
-                    <td class="text-center">16</td>
+                    <td class="text-center">{{ $bantuan->total_rt }}</td>
+                    <td class="text-center">{{ $bantuan->total_warga }}</td>
                     <td class="text-center">
+                        @if($bantuan->status == 'permintaan')
                         <span class="badge badge-warning">Permintaan</span>
+                        @elseif ($bantuan->status == 'terkirim')
+                        <span class="badge badge-primary">Terkirim</span>
+                        @elseif ($bantuan->status == 'batal')
+                        <span class="badge badge-danger">Batal</span>
+                        @endif
                     </td>
-                    </tr>
-                    @endfor
+                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

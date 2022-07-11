@@ -25,43 +25,46 @@
 
 <div class="row">
     <div class="col-12 col-md-5">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Permintaan Bantuan</h6>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <div class="mb-3">
-                            <label>Total RT</label>
-                            <p class="text-lg">{{ $total['rt'] }}</p>
+        <form action="{{ route('minta_bantuan') }}" method="POST">
+            @csrf
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Permintaan Bantuan</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label>Total RT</label>
+                                <p class="text-lg">{{ $total['rt'] }}</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label>Total Warga</label>
+                                <p class="text-lg">{{ $total['warga'] }}</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="mb-3">
-                            <label>Total Warga</label>
-                            <p class="text-lg">{{ $total['warga'] }}</p>
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label @error('bencana') is-invalid @enderror">Bencana</label>
+                        <input type="text" class="form-control" name="bencana" value="{{ old('bencana') }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label @error('dampak') is-invalid @enderror">Dampak</label>
+                        <textarea class="form-control" rows="3" name="dampak" value="{{ old('dampak') }}"></textarea>
+                    </div>
+                    <div class="float-right">
+                        <button type="submit" class="btn btn-warning btn-icon-split shadow-sm">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-paper-plane"></i>
+                            </span>
+                            <span class="text">Kirim</span>
+                        </button>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Bencana</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Dampak</label>
-                    <textarea class="form-control" rows="3"></textarea>
-                </div>
-                <div class="float-right">
-                    <a href="{{ route('barang.store') }}" class="btn btn-warning btn-icon-split shadow-sm">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-paper-plane"></i>
-                        </span>
-                        <span class="text">Kirim</span>
-                    </a>
-                </div>
             </div>
-        </div>
+        </form>
     </div>
     <div class="col-12 col-md-7">
         <div class="card shadow mb-4">
@@ -78,7 +81,7 @@
                     <tbody>
                         @foreach ($penerimas as $penerima)
                         <tr>
-                            <th scope="row" class="text-center">{{ $penerima->rt }}</th>
+                            <td scope="row" class="text-center">{{ $penerima->rt }}</td>
                             <td>
                                 <a href="{{ route('penerima.show', $penerima->id) }}" class="text-decoration-none">
                                     {{ $penerima->nama_depan }}
