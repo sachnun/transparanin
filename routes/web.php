@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardActivityController;
 use App\Http\Controllers\DashboardPenerimaController;
 use App\Http\Controllers\DashboardTrackController;
 use App\Http\Controllers\DashboardValidasiController;
+use App\Http\Controllers\DashboardWargaController;
 use App\Http\Controllers\LandingPageController;
 
 /*
@@ -38,6 +39,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::prefix('bantuan')->group(function () {
         Route::resource('/barang', DashboardBarangController::class);
         Route::resource('/penerima', DashboardPenerimaController::class);
+        Route::resource('penerima.warga', DashboardWargaController::class);
     });
 
     Route::resource('/track', DashboardTrackController::class);
