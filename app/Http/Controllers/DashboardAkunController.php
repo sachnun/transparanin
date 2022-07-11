@@ -13,7 +13,7 @@ class DashboardAkunController extends Controller
 
     public function index()
     {
-        $akuns = User::paginate(5);
+        $akuns = User::paginate(10);
 
         return view('dashboard.akun.index', compact('akuns'));
     }
