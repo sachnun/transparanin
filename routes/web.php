@@ -24,11 +24,16 @@ use App\Http\Controllers\LandingPageController;
 
 Route::get('/', [LandingPageController::class, 'index']);
 
-// Route dashboard namespace
-Route::prefix('dashboard')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('ringkasan');
-
+Route::middleware('guest')->group(function () {
     Route::get('/login', [DashboardAuthController::class, 'login'])->name('login');
+    Route::post('/auth', [DashboardAuthController::class, 'authenticate'])->name('auth');
+});
+
+Route::get('logout', [DashboardAuthController::class, 'logout'])->name('logout');
+
+// Route dashboard namespace
+Route::prefix('dashboard')->middleware('auth')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('ringkasan');
 
     Route::prefix('bantuan')->group(function () {
         Route::resource('/barang', DashboardBarangController::class);
