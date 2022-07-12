@@ -57,6 +57,18 @@
                         {{ $bantuan->user->nama_belakang }}
                     </p>
                 </div>
+                <div class="mb-3">
+                    <label>Kelurahan / Desa</label>
+                    <p class="text-lg">
+                        {{ $bantuan->user->kelurahan }}
+                    </p>
+                </div>
+                <div class="mb-3">
+                    <label>Kecamatan</label>
+                    <p class="text-lg">
+                        {{ $bantuan->user->kecamatan }}
+                    </p>
+                </div>
                 <div class="row">
                     <div class="col">
                         <div class="mb-3">

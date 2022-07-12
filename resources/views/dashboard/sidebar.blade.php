@@ -55,6 +55,7 @@
     @if(auth()->user()->is_admin)
     @php
     $active = Request::is('dashboard/validasi/*') ? true : false;
+    $total_permintaan = \App\Models\Bantuan::where('status', 'permintaan')->count();
     @endphp
     <li class="nav-item {{ $active ? 'active' : '' }}">
         <a class="nav-link {{ $active ? '' : 'collapsed' }}" href="#" data-toggle="collapse"
@@ -66,7 +67,10 @@
         <div id="collapseValidasi" class="collapse {{ $active ? 'show' : '' }}" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item {{ Request::is('dashboard/validasi/permintaan*') ? 'active' : '' }}"
-                    href="{{ route('validasi.permintaan') }}">Permintaan</a>
+                    href="{{ route('validasi.permintaan') }}">Permintaan
+                    @if ($total_permintaan > 0)
+                    <span class="badge badge-primary">{{ $total_permintaan }}</a>
+                @endif
                 <a class="collapse-item {{ Request::is('dashboard/validasi/terkirim*') ? 'active' : '' }}"
                     href="{{ route('validasi.terkirim') }}">Terkirim</a>
                 <a class="collapse-item {{ Request::is('dashboard/validasi/batal*') ? 'active' : '' }}"

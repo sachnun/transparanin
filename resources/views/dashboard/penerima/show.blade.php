@@ -95,11 +95,9 @@
                     <tbody>
                         @foreach ($wargas as $warga)
                         <tr>
-                            <th scope="row" class="text-center">8923488329832</th>
+                            <td scope="row" class="text-center">8923488329832</td>
                             <td>
-                                <a href="{{ route('penerima.show', 1) }}" class="text-decoration-none">
-                                    {{ $warga->kepala_keluarga }}
-                                </a>
+                                {{ $warga->kepala_keluarga }}
                             </td>
                             <td class="text-center">{{ $warga->anggota_keluarga }}</td>
                             <td class="text-center">
