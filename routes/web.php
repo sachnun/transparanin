@@ -49,6 +49,11 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::get('/permintaan', [DashboardValidasiController::class, 'permintaan'])->name('validasi.permintaan');
         Route::get('/terkirim', [DashboardValidasiController::class, 'terkirim'])->name('validasi.terkirim');
         Route::get('/batal', [DashboardValidasiController::class, 'batal'])->name('validasi.batal');
+
+        Route::namespace('aksi')->group(function () {
+            Route::post('{id}/terkirim', [DashboardValidasiController::class, 'aksi_terkirim'])->name('validasi.aksi_terkirim');
+            Route::post('{id}/batal', [DashboardValidasiController::class, 'aksi_batal'])->name('validasi.aksi_batal');
+        });
     });
     Route::resource('/validasi', DashboardValidasiController::class)
         ->only('store', 'update', 'destroy');
