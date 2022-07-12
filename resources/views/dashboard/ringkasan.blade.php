@@ -15,7 +15,7 @@
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Total Bantuan
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $total['total_bantuan'] }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -33,7 +33,7 @@
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                             Permintaan Bantuan
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $total['total_permintaan'] }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-hand-holding fa-2x text-gray-300"></i>
@@ -51,7 +51,7 @@
                         <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                             Bantuan Dibatalkan
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">4</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $total['total_batal'] }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-hand fa-2x text-gray-300"></i>
@@ -69,7 +69,7 @@
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Bantuan Terkirim
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $total['total_terkirim'] }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-hand-holding-hand fa-2x text-gray-300"></i>
