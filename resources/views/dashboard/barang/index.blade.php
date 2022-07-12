@@ -28,7 +28,9 @@
                         <th scope="col" class="text-center">Poster</th>
                         <th scope="col">Nama Barang</th>
                         <th scope="col" class="text-center">Jenis</th>
+                        @if (auth()->user()->is_admin)
                         <th scope="col"></th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -44,6 +46,7 @@
                             </a>
                         </td>
                         <td class="text-center align-middle">Makanan</td>
+                        @if (auth()->user()->is_admin)
                         <td class="text-center align-middle">
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -59,6 +62,7 @@
                                 </div>
                             </div>
                         </td>
+                        @endif
                         </tr>
                         @endfor
                 </tbody>
