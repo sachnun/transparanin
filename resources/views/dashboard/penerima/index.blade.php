@@ -102,7 +102,11 @@
                                         <a class="dropdown-item"
                                             href="{{ route('penerima.edit', $penerima->id) }}">Edit</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item text-danger" href="#">Hapus</a>
+                                        <form action="{{ route('penerima.destroy', $penerima) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="dropdown-item text-danger">Hapus</button>
+                                        </form>
                                     </div>
                                 </div>
                             </td>

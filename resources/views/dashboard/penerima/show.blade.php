@@ -37,7 +37,11 @@
                         aria-labelledby="dropdownMenuLink" style="">
                         <a class="dropdown-item" href="{{ route('penerima.edit', $penerima->id) }}">Edit</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="#">Hapus</a>
+                        <form action="{{ route('penerima.destroy', $penerima) }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="dropdown-item text-danger">Hapus</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -95,7 +99,7 @@
                     <tbody>
                         @foreach ($wargas as $warga)
                         <tr>
-                            <td scope="row" class="text-center">8923488329832</td>
+                            <td scope="row" class="text-center">{{ $warga->kk }}</td>
                             <td>
                                 {{ $warga->kepala_keluarga }}
                             </td>
@@ -108,10 +112,15 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink" style="">
-                                        <a class="dropdown-item" href="#">Profile</a>
+                                        {{-- <a class="dropdown-item" href="#">Profile</a> --}}
                                         <a class="dropdown-item" href="#">Edit</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item text-danger" href="#">Hapus</a>
+                                        <form action="{{ route('penerima.warga.destroy', [$penerima, $warga]) }}"
+                                            method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="dropdown-item text-danger">Hapus</button>
+                                        </form>
                                     </div>
                                 </div>
                             </td>

@@ -57,7 +57,11 @@
                                 <a class="dropdown-item" href="{{ route('akun.show', $akun->id) }}">Profile</a>
                                 <a class="dropdown-item" href="{{ route('akun.edit', $akun->id) }}">Edit</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-danger" href="#">Hapus</a>
+                                <form action="{{ route('akun.destroy', $akun) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger">Hapus</button>
+                                </form>
                             </div>
                         </div>
                     </td>

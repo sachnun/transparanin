@@ -62,8 +62,16 @@ class DashboardWargaController extends Controller
         //
     }
 
-    public function destroy($id)
+    public function destroy($penerima_id, $id)
     {
-        //
+        $warga = Warga::findOrFail($id);
+        $warga->delete();
+
+        // log
+        $log = new Activity();
+        $log->log('Menghapus data warga bantuan RT ' . $warga->rt);
+
+        // redirect ke halaman index
+        return redirect()->route('penerima.show', $penerima_id);
     }
 }
